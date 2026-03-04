@@ -1,9 +1,8 @@
 // js/script.js
-
 (function () {
     "use strict";
 
-    // --- Dados dos slides ---
+    // --- Lista de slides (suas 17 imagens) ---
     const slides = [
         {
             src: "https://skyagent-artifacts.skywork.ai/image/2028908685195108352/6651c77d-b1ad-403a-b621-659e90ca9acd/prod_agent_2028908685195108352/3b5e03d6-5a25-4c4f-b405-41b5c1819a21_1.png",
@@ -97,24 +96,22 @@
     const captionEl = document.getElementById("slide-caption");
     const currentSlideEl = document.getElementById("current-slide");
     const totalSlidesEl = document.getElementById("total-slides");
-
     const prevBtn = document.getElementById("prev-slide");
     const nextBtn = document.getElementById("next-slide");
-
     const thumbnailsPanel = document.getElementById("thumbnails-panel");
     const headerButtons = document.querySelectorAll(".control-btn");
 
     // --- Estado ---
     let currentIndex = 0;
     let autoPlayTimer = null;
-    const AUTO_PLAY_INTERVAL = 5000; // 5 segundos
+    const AUTO_PLAY_INTERVAL = 5000; // 5s
 
     // --- Inicialização ---
     totalSlidesEl.textContent = String(slides.length);
     renderSlide(currentIndex);
     buildThumbnails();
 
-    // --- Funções principais ---
+    // --- Funções ---
 
     function renderSlide(index) {
         const slide = slides[index];
@@ -137,13 +134,9 @@
     function toggleFullscreen() {
         const el = document.documentElement;
         if (!document.fullscreenElement) {
-            if (el.requestFullscreen) {
-                el.requestFullscreen();
-            }
+            if (el.requestFullscreen) el.requestFullscreen();
         } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
+            if (document.exitFullscreen) document.exitFullscreen();
         }
     }
 
@@ -176,11 +169,7 @@
                 toggleThumbnails();
                 break;
             case "auto":
-                if (autoPlayTimer) {
-                    stopAutoPlay();
-                } else {
-                    startAutoPlay();
-                }
+                autoPlayTimer ? stopAutoPlay() : startAutoPlay();
                 break;
         }
     }
@@ -212,23 +201,19 @@
         list.addEventListener("click", (event) => {
             const target = event.target;
             if (!(target instanceof HTMLElement)) return;
-
             const button = target.closest(".thumbnail-btn");
             if (!button) return;
 
             const indexStr = button.dataset.slide;
-            if (typeof indexStr === "string") {
-                const index = parseInt(indexStr, 10);
-                if (!Number.isNaN(index)) {
-                    currentIndex = index;
-                    renderSlide(currentIndex);
-                }
+            const index = indexStr ? parseInt(indexStr, 10) : NaN;
+            if (!Number.isNaN(index)) {
+                currentIndex = index;
+                renderSlide(currentIndex);
             }
         });
     }
 
     // --- Eventos de clique ---
-
     prevBtn.addEventListener("click", prevSlide);
     nextBtn.addEventListener("click", nextSlide);
 
@@ -238,10 +223,9 @@
         btn.addEventListener("click", () => handleHeaderButtonClick(action));
     });
 
-    // --- Eventos de teclado ---
+    // --- Teclado ---
     window.addEventListener("keydown", (event) => {
         const key = event.key;
-
         switch (key) {
             case "ArrowLeft":
                 prevSlide();
@@ -259,11 +243,7 @@
                 break;
             case "a":
             case "A":
-                if (autoPlayTimer) {
-                    stopAutoPlay();
-                } else {
-                    startAutoPlay();
-                }
+                autoPlayTimer ? stopAutoPlay() : startAutoPlay();
                 break;
             case "Escape":
                 stopAutoPlay();

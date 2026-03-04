@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Operações com Matrizes</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <header class="app-header">
-    <div class="app-header__left">
-        <h1 class="app-title">Operações com Matrizes</h1>
-    </div>
-    <div class="app-header__right">
+    <h1 class="app-title">Operações com Matrizes</h1>
+
+    <nav class="header-controls" aria-label="Controles da apresentação">
         <button type="button" class="control-btn" data-action="fullscreen" aria-label="Tela cheia (F)">
             ⛶ Tela Cheia
         </button>
@@ -23,12 +21,11 @@
         <button type="button" class="control-btn" data-action="auto" aria-label="Apresentação automática (A)">
             ▶ Auto
         </button>
-    </div>
+    </nav>
 </header>
 
 <main class="app-main" role="main">
     <section class="slideshow" aria-label="Apresentação de slides: Operações com Matrizes">
-        <!-- Contêiner da imagem -->
         <figure class="slide-figure">
             <img
                 id="slide-image"
@@ -41,7 +38,6 @@
             </figcaption>
         </figure>
 
-        <!-- Navegação de slides -->
         <nav class="slide-nav" aria-label="Navegação entre slides">
             <button
                 type="button"
@@ -69,16 +65,9 @@
         </nav>
     </section>
 
-    <!-- Miniaturas: opcional (pode ocultar inicialmente) -->
     <section class="thumbnails" id="thumbnails-panel" aria-label="Miniaturas dos slides" hidden>
         <ul class="thumbnails__list">
-            <!-- Exemplo: gere estes <li> dinamicamente se quiser, aqui estático para clareza -->
-            <li class="thumbnails__item">
-                <button type="button" class="thumbnail-btn" data-slide="0">
-                    <img src="https://skyagent-artifacts.skywork.ai/image/2028908685195108352/6651c77d-b1ad-403a-b621-659e90ca9acd/prod_agent_2028908685195108352/3b5e03d6-5a25-4c4f-b405-41b5c1819a21_1.png" alt="Miniatura slide 1">
-                </button>
-            </li>
-            <!-- Repita para todos os 17 slides -->
+            <!-- será preenchido via JS -->
         </ul>
     </section>
 </main>

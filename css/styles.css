@@ -1,9 +1,9 @@
-/* ========== RESET BÁSICO E VARIÁVEIS ========== */
+/* ========== VARIÁVEIS E RESET ========== */
 
 :root {
-    --bg-color: #111;
-    --surface-color: #1b1b1b;
-    --border-color: #323232;
+    --bg-color: #000;            /* fundo geral preto para sumir com bordas */
+    --surface-color: #050505;    /* quase preto, bem discreto */
+    --border-color: #222;
     --text-color: #f5f5f5;
     --muted-color: #bbbbbb;
     --accent-color: #4caf50;
@@ -12,20 +12,19 @@
     --font-mono: "Fira Code", Menlo, Monaco, Consolas, "Courier New", monospace;
 
     --spacing-xs: 0.25rem;
-    --spacing-s: 0.5rem;
-    --spacing-m: 1rem;
-    --spacing-l: 1.5rem;
+    --spacing-s: 0.375rem;
+    --spacing-m: 0.75rem;
 
-    --header-height: 3.25rem;
-    --footer-height: 2.5rem;
+    --header-height: 2.5rem;   /* mais baixo */
+    --footer-height: 2.25rem;  /* mais baixo */
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html,
@@ -37,68 +36,56 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.5;
-}
-
-/* ========== LAYOUT GERAL ========== */
-
-body {
+    line-height: 1.4;
     display: flex;
     flex-direction: column;
 }
+
+/* ========== HEADER / FOOTER SUPER ENXUTOS ========== */
 
 .app-header,
 .app-footer {
     flex: 0 0 auto;
-    background-color: #161616;
-    border-bottom: 1px solid var(--border-color);
-    padding: 0 var(--spacing-m);
+    min-height: var(--header-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: var(--header-height);
+    padding: 0 var(--spacing-m);
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.8rem;
 }
 
 .app-footer {
+    min-height: var(--footer-height);
+    justify-content: center;
     border-top: 1px solid var(--border-color);
     border-bottom: none;
-    justify-content: center;
-    min-height: var(--footer-height);
-    font-size: 0.875rem;
     color: var(--muted-color);
 }
 
-.app-main {
-    flex: 1 1 auto;
-    min-height: 0; /* importante para fullscreen */
-    display: flex;
-    flex-direction: column;
-    padding: var(--spacing-m);
-}
-
-/* ========== CABEÇALHO ========== */
-
 .app-title {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
+    white-space: nowrap;
 }
 
-.app-header__right {
+.header-controls {
     display: flex;
-    gap: var(--spacing-s);
+    gap: var(--spacing-xs);
 }
 
 .control-btn {
-    background-color: var(--surface-color);
+    background-color: #111;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.7rem;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 2px;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.2rem;
 }
 
 .control-btn:hover,
@@ -107,67 +94,76 @@ body {
     outline: none;
 }
 
-/* ========== APRESENTAÇÃO / SLIDESHOW ========== */
+/* ========== ÁREA PRINCIPAL: MÁXIMO ESPAÇO PARA O SLIDE ========== */
 
+.app-main {
+    flex: 1 1 auto;
+    min-height: 0;
+    /* zero padding nas bordas; quem manda é o slideshow */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Slideshow quase ocupando tudo */
 .slideshow {
     flex: 1 1 auto;
     min-height: 0;
-    background-color: var(--surface-color);
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-m);
-    gap: var(--spacing-m);
+    /* tirar quase todo o padding para o slide crescer */
+    padding: var(--spacing-xs);
+    background-color: var(--bg-color); /* preto mesmo */
 }
 
-/* Contêiner da figura ocupa toda a área possível */
+/* Contêiner do slide: ocupa tudo entre header e footer */
 .slide-figure {
     flex: 1 1 auto;
     min-height: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-s);
 }
 
-/* Área da imagem precisa se adaptar ao viewport */
+/* A imagem preenche praticamente todo o espaço útil */
 .slide-image {
     flex: 1 1 auto;
     min-height: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* aqui está o segredo para não cortar a imagem */
+    object-fit: contain;   /* não corta, mas ocupa o máximo possível */
     background-color: #000;
-    border-radius: 3px;
 }
 
-/* Legenda / info do slide */
+/* Legenda logo abaixo, bem discreta */
 .slide-caption {
-    font-size: 0.875rem;
+    flex: 0 0 auto;
+    font-size: 0.75rem;
     color: var(--muted-color);
+    margin-top: 0.2rem;
 }
 
-/* Navegação abaixo do slide */
+/* Navegação: colada na legenda, mas bem compacta */
 .slide-nav {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--spacing-m);
+    margin-top: var(--spacing-xs);
 }
 
 .nav-btn {
-    background-color: var(--bg-color);
+    background-color: #111;
     border-radius: 50%;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2rem;
+    height: 2rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     cursor: pointer;
 }
 
@@ -179,29 +175,24 @@ body {
 
 .slide-counter {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: 0.8rem;
 }
 
-/* ========== MINIATURAS ========== */
+/* ========== MINIATURAS (APENAS QUANDO ABERTAS) ========== */
 
 .thumbnails {
-    margin-top: var(--spacing-m);
-    padding: var(--spacing-s);
-    background-color: #151515;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
+    flex: 0 0 auto;
+    padding: var(--spacing-xs);
+    background-color: #050505;
+    border-top: 1px solid var(--border-color);
 }
 
 .thumbnails__list {
-    list-style: none;
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-s);
-    justify-content: flex-start;
-}
-
-.thumbnails__item {
-    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: var(--spacing-xs);
+    list-style: none;
 }
 
 .thumbnail-btn {
@@ -212,8 +203,8 @@ body {
 }
 
 .thumbnail-btn img {
-    width: 80px;
-    height: 60px;
+    width: 70px;
+    height: 50px;
     object-fit: cover;
     border-radius: 2px;
     border: 1px solid var(--border-color);
@@ -221,64 +212,57 @@ body {
 
 .thumbnail-btn:hover img,
 .thumbnail-btn:focus-visible img {
-    border-color: var(--accent-color);
     outline: none;
+    border-color: var(--accent-color);
 }
 
-/* ========== RODAPÉ / TECLAS ========== */
+/* ========== RODAPÉ ========== */
 
 .keyboard-help {
     display: flex;
     align-items: center;
-    gap: var(--spacing-s);
+    gap: var(--spacing-xs);
     flex-wrap: wrap;
     justify-content: center;
+    font-size: 0.7rem;
 }
 
 kbd {
-    background-color: #222;
-    border-radius: 3px;
+    background-color: #111;
+    border-radius: 2px;
     border: 1px solid var(--border-color);
     padding: 0 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
-/* ========== RESPONSIVIDADE ========== */
+/* ========== RESPONSIVO ========== */
 
 @media (max-width: 768px) {
-    .app-main {
-        padding: var(--spacing-s);
-    }
-
-    .slideshow {
-        padding: var(--spacing-s);
-    }
-
     .app-header,
     .app-footer {
-        padding: 0 var(--spacing-s);
-        flex-wrap: wrap;
-        gap: var(--spacing-s);
+        padding: 0 var(--spacing-xs);
+        gap: var(--spacing-xs);
     }
 
     .app-title {
-        font-size: 0.9rem;
-    }
-
-    .control-btn {
-        font-size: 0.7rem;
-    }
-
-    .slide-caption {
         font-size: 0.8rem;
     }
 
-    .keyboard-help {
-        font-size: 0.75rem;
+    .control-btn {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+    }
+
+    .slide-caption {
+        font-size: 0.7rem;
+    }
+
+    .slide-nav {
+        margin-top: 0.15rem;
     }
 
     .thumbnail-btn img {
-        width: 64px;
-        height: 48px;
+        width: 60px;
+        height: 45px;
     }
 }
