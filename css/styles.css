@@ -1,0 +1,284 @@
+/* ========== RESET BÁSICO E VARIÁVEIS ========== */
+
+:root {
+    --bg-color: #111;
+    --surface-color: #1b1b1b;
+    --border-color: #323232;
+    --text-color: #f5f5f5;
+    --muted-color: #bbbbbb;
+    --accent-color: #4caf50;
+
+    --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "Fira Code", Menlo, Monaco, Consolas, "Courier New", monospace;
+
+    --spacing-xs: 0.25rem;
+    --spacing-s: 0.5rem;
+    --spacing-m: 1rem;
+    --spacing-l: 1.5rem;
+
+    --header-height: 3.25rem;
+    --footer-height: 2.5rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+/* ========== LAYOUT GERAL ========== */
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header,
+.app-footer {
+    flex: 0 0 auto;
+    background-color: #161616;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 var(--spacing-m);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--header-height);
+}
+
+.app-footer {
+    border-top: 1px solid var(--border-color);
+    border-bottom: none;
+    justify-content: center;
+    min-height: var(--footer-height);
+    font-size: 0.875rem;
+    color: var(--muted-color);
+}
+
+.app-main {
+    flex: 1 1 auto;
+    min-height: 0; /* importante para fullscreen */
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-m);
+}
+
+/* ========== CABEÇALHO ========== */
+
+.app-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.app-header__right {
+    display: flex;
+    gap: var(--spacing-s);
+}
+
+.control-btn {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.control-btn:hover,
+.control-btn:focus-visible {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+/* ========== APRESENTAÇÃO / SLIDESHOW ========== */
+
+.slideshow {
+    flex: 1 1 auto;
+    min-height: 0;
+    background-color: var(--surface-color);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-m);
+    gap: var(--spacing-m);
+}
+
+/* Contêiner da figura ocupa toda a área possível */
+.slide-figure {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-s);
+}
+
+/* Área da imagem precisa se adaptar ao viewport */
+.slide-image {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* aqui está o segredo para não cortar a imagem */
+    background-color: #000;
+    border-radius: 3px;
+}
+
+/* Legenda / info do slide */
+.slide-caption {
+    font-size: 0.875rem;
+    color: var(--muted-color);
+}
+
+/* Navegação abaixo do slide */
+.slide-nav {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-m);
+}
+
+.nav-btn {
+    background-color: var(--bg-color);
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.nav-btn:hover,
+.nav-btn:focus-visible {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.slide-counter {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* ========== MINIATURAS ========== */
+
+.thumbnails {
+    margin-top: var(--spacing-m);
+    padding: var(--spacing-s);
+    background-color: #151515;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.thumbnails__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-s);
+    justify-content: flex-start;
+}
+
+.thumbnails__item {
+    flex: 0 0 auto;
+}
+
+.thumbnail-btn {
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.thumbnail-btn img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 1px solid var(--border-color);
+}
+
+.thumbnail-btn:hover img,
+.thumbnail-btn:focus-visible img {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+/* ========== RODAPÉ / TECLAS ========== */
+
+.keyboard-help {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-s);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+kbd {
+    background-color: #222;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    padding: 0 0.25rem;
+    font-size: 0.75rem;
+}
+
+/* ========== RESPONSIVIDADE ========== */
+
+@media (max-width: 768px) {
+    .app-main {
+        padding: var(--spacing-s);
+    }
+
+    .slideshow {
+        padding: var(--spacing-s);
+    }
+
+    .app-header,
+    .app-footer {
+        padding: 0 var(--spacing-s);
+        flex-wrap: wrap;
+        gap: var(--spacing-s);
+    }
+
+    .app-title {
+        font-size: 0.9rem;
+    }
+
+    .control-btn {
+        font-size: 0.7rem;
+    }
+
+    .slide-caption {
+        font-size: 0.8rem;
+    }
+
+    .keyboard-help {
+        font-size: 0.75rem;
+    }
+
+    .thumbnail-btn img {
+        width: 64px;
+        height: 48px;
+    }
+}
